@@ -1,0 +1,17 @@
+[package]
+name = "cargo-force-build"
+version = "0.1.2"
+edition = "2018"
+authors = ["CATS <Aurelien.Couthures@gmail.com>"]
+description = "Allow soft force build"
+readme = "README.md"
+license = "MIT OR Apache-2.0"
+keywords = ["build", "force"]
+repository = "https://github.com/CoAuToSe/cargo-force-build"
+homepage = "https://github.com/CoAuToSe/cargo-force-build"
+documentation = "https://docs.rs/cargo-force-build"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+structopt="*"
