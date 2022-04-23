@@ -1,0 +1,43 @@
+name: "Build & Deploy Website"
+on:
+  push:
+    branches:
+      - master 
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Install Just
+        run: curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | sudo bash -s -- --to /usr/local/bin
+      - name: Run Website Doc Tests
+        run: just website-doc-tests
+
+  build:
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/master'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Build only
+        uses: shalzz/zola-deploy-action@master
+        env:
+          BUILD_DIR: site
+          TOKEN: ${{ secrets.TOKEN }}
+          BUILD_ONLY: true
+
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Build and Deploy
+        uses: shalzz/zola-deploy-action@master
+        env:
+          PAGES_BRANCH: gh-pages
+          BUILD_DIR: site
+          TOKEN: ${{ secrets.TOKEN }}

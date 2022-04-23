@@ -1,0 +1,19 @@
+[package]
+name = "wgsl-playground-cats"
+version = "0.1.2"
+authors = ["Paul Butler <paulgb@gmail.com>"]
+edition = "2018"
+license = "MIT"
+description = "Playground for experimenting with WGSL fragment shaders with live-reloading."
+resolver = "2"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bytemuck = { version = "1.7.2", features = ["derive"] }
+clap = "3.0.0-beta.2"
+futures = "0.3.16"
+notify = "4.0.17"
+wgpu = { version = "0.12.0", features = ['default', 'naga'] }
+winit = "0.26.0"
+wgpu-subscriber = "0.1.0"

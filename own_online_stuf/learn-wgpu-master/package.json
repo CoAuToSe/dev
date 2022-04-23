@@ -1,0 +1,25 @@
+{
+  "name": "learn-wgpu",
+  "version": "1.0.0",
+  "description": "Learning wgpu with Rust",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "deploy": "sh deploy.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vuepress/plugin-back-to-top": "^1.4.0",
+    "vuepress": "^1.4.0",
+    "vuepress-plugin-code-copy": "^1.0.6",
+    "vuepress-plugin-seo": "^0.1.2",
+    "vuepress-theme-thindark": "^1.0.1"
+  },
+  "dependencies": {}
+}

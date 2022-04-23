@@ -1,0 +1,8 @@
+[package]
+name = "mybin"
+version = "0.1.0"
+authors = ["blank"]
+edition = "2018"
+
+[dependencies]
+mymacro = { path = "../mymacro", feature = "derive" }

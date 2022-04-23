@@ -1,0 +1,173 @@
+name: CI
+
+on:
+  push:
+    branches: [master, staging]
+    tags: [v0.*]
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Windows
+          - name: Windows x86_64
+            os: windows-2019
+            channel: stable
+            target: x86_64-pc-windows-msvc
+            kind: test
+          
+          # MacOS
+
+          # Mac has no software runners, so don't run tests
+          - name: MacOS x86_64
+            os: macos-10.15
+            channel: stable
+            target: x86_64-apple-darwin
+            kind: compile
+
+          
+          # IOS
+          - name: IOS aarch64
+            os: macos-10.15
+            channel: stable
+            target: aarch64-apple-ios
+            kind: compile
+
+
+          # Linux
+          - name: Linux x86_64
+            os: ubuntu-20.04
+            channel: stable
+            target: x86_64-unknown-linux-gnu
+            kind: test
+
+          - name: Linux Nightly x86_64
+            os: ubuntu-20.04
+            channel: nightly
+            target: x86_64-unknown-linux-gnu
+            kind: compile
+
+          
+          # Android
+          - name: Android aarch64
+            os: ubuntu-20.04
+            channel: stable
+            target: aarch64-linux-android
+            kind: compile
+
+          
+          # WebGPU/WebGL
+          - name: WebAssembly
+            os: ubuntu-20.04
+            channel: stable
+            target: wasm32-unknown-unknown
+            kind: webgl
+
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+
+    env:
+      PKG_CONFIG_ALLOW_CROSS: 1 # allow android to work
+      RUSTFLAGS: --cfg=web_sys_unstable_apis
+      RUSTDOCFLAGS: -Dwarnings
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v2
+
+      - name: install rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.channel }}
+          target: ${{ matrix.target }}
+          override: true
+          profile: minimal
+          components: clippy
+
+      - name: add android apk to path
+        if: matrix.os == 'ubuntu-20.04' && matrix.target == 'aarch64-linux-android'
+        run: |
+          echo "$ANDROID_HOME/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin" >> $GITHUB_PATH
+
+      - name: install llvmpipe and lavapipe
+        if: matrix.os == 'ubuntu-20.04' && matrix.kind == 'test'
+        run: |
+          echo "Installing Vulkan"
+          sudo apt-get update -y -qq
+          sudo add-apt-repository ppa:ubuntu-x-swat/updates -y
+          sudo apt-get update
+          sudo apt install -y libxcb-xfixes0-dev mesa-vulkan-drivers
+
+      # This is separate for now because webgl isn't hooked up so we can't compile wgpu-core for wasm
+      - name: check web
+        if: matrix.kind == 'webgl'
+        run: |
+          cargo clippy --target ${{ matrix.target }} -p wgpu -- -D warnings
+
+          # build docs
+          cargo doc --target ${{ matrix.target }} -p wgpu --no-deps
+
+      - name: check native stable (fatal warnings)
+        if: (matrix.kind == 'compile' || matrix.kind == 'test') && matrix.channel == 'stable'
+        run: |
+          # check with no features
+          cargo clippy --target ${{ matrix.target }} -p wgpu -p wgpu-core -p wgpu-info -p player -- -D warnings
+
+          # check with all features
+          # explicitly don't mention wgpu-hal so that --all-features don't apply to it
+          cargo clippy --target ${{ matrix.target }} -p wgpu -p wgpu-core -p wgpu-info -p player --examples --tests --all-features -- -D warnings 
+
+          # build docs
+          cargo doc --target ${{ matrix.target }} --no-deps
+          cargo doc --target ${{ matrix.target }} -p wgpu -p wgpu-core -p wgpu-info -p player --all-features --no-deps
+
+      - name: check native nightly (non-fatal warnings)
+        if: (matrix.kind == 'compile' || matrix.kind == 'test') && matrix.channel != 'stable'
+        run: |
+          # check with no features
+          cargo clippy --target ${{ matrix.target }} -p wgpu -p wgpu-core -p wgpu-info -p player
+
+          # check with all features
+          # explicitly don't mention wgpu-hal so that --all-features don't apply to it
+          cargo clippy --target ${{ matrix.target }} -p wgpu -p wgpu-core -p wgpu-info -p player --examples --tests --all-features
+
+      - name: build tests
+        if: matrix.kind == 'test'
+        run: |
+          cargo build --target ${{ matrix.target }} --bin wgpu-info 
+          cargo build --target ${{ matrix.target }} --tests --workspace --exclude wgpu
+          cargo build --target ${{ matrix.target }} --examples --tests -p wgpu
+
+      - name: tests
+        if: matrix.kind == 'test' && matrix.os == 'windows-2019'
+        run: |
+          # run wgpu-info
+          cargo run --target ${{ matrix.target }} --bin wgpu-info
+        
+          # run player tests
+          cargo test --target ${{ matrix.target }} --workspace --exclude wgpu --no-fail-fast -- --nocapture
+
+          # run coretests
+          cargo run --target ${{ matrix.target }} --bin wgpu-info -- cargo test --target ${{ matrix.target }} -p wgpu --no-fail-fast -- --nocapture --test-threads=1 # GLES is currently non-multithreadable
+
+  fmt:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v2
+
+      - name: install rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+          components: rustfmt
+
+      - name: run rustfmt
+        run: |
+          cargo fmt -- --check

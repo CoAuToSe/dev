@@ -1,0 +1,15 @@
+[package]
+name = "cargo-cats"
+version = "0.1.4"
+edition = "2018"
+authors = ["CATS <Aurelien.Couthures@gmail.com>"]
+description = "CATS's"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/CoAuToSe/cargo-cats"
+homepage = "https://github.com/CoAuToSe/cargo-cats"
+documentation = "https://docs.rs/cargo-cats"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]

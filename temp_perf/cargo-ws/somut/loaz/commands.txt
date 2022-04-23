@@ -1,0 +1,15 @@
+gcc -c hello.c
+gcc -shared -o Hello.dll -Wl,--out-implib,libstddll.a hello.o
+gcc -o testProg something.c -L. -lHello
+testProg.exe
+
+
+${name_code_for_dll}
+${name_of_dll}
+${name_of_final_programm__exe}
+${name_source_c__raw_code}
+
+gcc -c ${name_code_for_dll}.c
+gcc -shared -o ${name_of_dll}.dll -Wl,--out-implib,libstddll.a ${name_code_for_dll}.o
+gcc -o ${name_of_final_programm__exe} ${name_source_c__raw_code}.c -L. -l${name_of_dll}
+${name_of_final_programm__exe}.exe

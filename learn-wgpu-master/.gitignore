@@ -1,0 +1,12 @@
+node_modules/
+target/
+.vscode/
+
+/image.png
+/output*.*
+output/
+
+/trace
+*trace.zip
+
+secrets.txt

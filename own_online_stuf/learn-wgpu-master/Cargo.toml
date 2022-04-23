@@ -1,0 +1,11 @@
+[workspace]
+members = [
+    # beginner tutorials
+    "code/beginner/*",
+
+    # intermediate tutorials
+    "code/intermediate/*",
+
+    # showcase
+    "code/showcase/*",
+]

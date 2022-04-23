@@ -1,0 +1,14 @@
+[workspace]
+# name = "games"
+# version = "0.1.0"
+# edition = "2018"
+resolver = "2"
+members = [
+    "squared_2d",
+    "wgpu",
+    "wgpu-core",
+    "wgpu-hal",
+    "wgpu-info",
+    "wgpu-types",
+    "initial_state"
+]
