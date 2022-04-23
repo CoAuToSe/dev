@@ -1,0 +1,11 @@
+class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="ident">Iterator</span><span class="op">&gt;</span> <span class="ident">IntoIterator</span> <span class="kw">for</span> <span class="ident">I</span><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn%20main()%20%7B%0Aimpl%3CI%3A%20Iterator%3E%20IntoIterator%20for%20I%0A%7D&amp;edition=2018">Run</a></pre></div>
+<p>In other words, all <a href="trait.Iterator.html"><code>Iterator</code></a>s implement <a href="trait.IntoIterator.html"><code>IntoIterator</code></a>, by just
+returning themselves. This means two things:</p>
+<ol>
+<li>If you're writing an <a href="trait.Iterator.html"><code>Iterator</code></a>, you can use it with a <code>for</code> loop.</li>
+<li>If you're creating a collection, implementing <a href="trait.IntoIterator.html"><code>IntoIterator</code></a> for it
+will allow your collection to be used with the <code>for</code> loop.</li>
+</ol>
+<h1 id="adapters" class="section-header"><a href="#adapters">Adapters</a></h1>
+<p>Functions 

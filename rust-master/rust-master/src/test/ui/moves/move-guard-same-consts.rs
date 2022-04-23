@@ -1,0 +1,4 @@
+terator.html" title='core::iter::ExactSizeIterator trait'>ExactSizeIterator</a></td><td class='docblock-short'><p>An iterator that knows its exact length.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.Extend.html" title='core::iter::Extend trait'>Extend</a></td><td class='docblock-short'><p>Extend a collection with the contents of an iterator.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.FromIterator.html" title='core::iter::FromIterator trait'>FromIterator</a></td><td class='docblock-short'><p>Conversion from an <code>Iterator</code>.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.FusedIterator.html" title='core::iter::FusedIterator trait'>FusedIterator</a></td><td class='docblock-short
