@@ -138,23 +138,28 @@ impl<
             outputs: [None; NUM_OUT],
         }
     }
-    fn new_val(val: T, function: fn(T) -> T) -> Self
+    fn new_val(
+        val: T,
+        function: fn(T) -> T,
+        mut inputs: [T; NUM_IN],
+        mut outputs: [Option<T>; NUM_OUT],
+    ) -> Self
     where
         T: Default,
     {
         SquareNetwork {
-            inputs: &mut [T::default(); NUM_IN],
+            inputs: &mut inputs,
             layers_in: LayerNeuron::new_val(val, function, function),
             layers: [LayerNeuron::new_val(val, function, function); SIZE],
             layers_out: LayerNeuron::new_val(val, function, function),
-            outputs: [None; NUM_OUT],
+            outputs: outputs,
         }
     }
     fn calculate(&mut self)
     where
         T: Display + Debug,
     {
-        println!("------0-------\n{:#?}------0-------\n", &self);
+        // println!("------0-------\n{:#?}------0-------\n", &self);
         // self.layers_in.calculate_first_layer(*inputsz);
         self.layers_in
             .calculate_first_layer(unsafe { *self.inputs });
@@ -174,12 +179,13 @@ impl<
 fn main() {
     println!("Hello, world!");
     let mut inputs = [1., 2.];
-    let mut my_net = SquareNetwork::<f64, 1, 3, 2, 1>::new_val(1., lol);
+    let mut outputs = [None; 3];
+    let mut my_net = SquareNetwork::<f64, 1, 3, 2, 3>::new_val(1., lol, inputs, outputs);
     my_net.inputs = &mut inputs;
     my_net.calculate();
     inputs = [2., 3.];
     my_net.calculate();
-    println!("{:#?}", my_net);
+    // println!("{:#?}", my_net);
 }
 
 fn lol<T>(some: T) -> T
