@@ -8,7 +8,6 @@ use std::{
 #[derive(Debug, Clone, Copy)]
 struct LayerNeuron<T, const FROM: usize, const INSIDE: usize> {
     weights: [[T; FROM]; INSIDE],
-    sum: [Option<T>; INSIDE],
     neurons: [Option<T>; INSIDE],
     activation_function: fn(T) -> T,
     error_function: fn(T) -> T,
@@ -20,7 +19,6 @@ impl<'a, T: Default + Copy, const FROM: usize, const INSIDE: usize> Default
     fn default() -> Self {
         LayerNeuron {
             weights: [[T::default(); FROM]; INSIDE],
-            sum: [None; INSIDE],
             neurons: [None; INSIDE],
             activation_function: |_| T::default(),
             error_function: |_| T::default(),
@@ -56,7 +54,6 @@ impl<
 trait Unit<T>: Num<T> + FromStr + Default {
     fn unit() -> Self;
     fn not_unit() -> Self;
-    fn abs(self) -> Self;
 }
 impl<T: Num<T> + FromStr + Default> Unit<T> for T
 where
@@ -68,13 +65,6 @@ where
     fn not_unit() -> Self {
         T::default() - T::unit()
     }
-    fn abs(self) -> Self {
-        if self >= T::default() {
-            return self;
-        } else {
-            return T::default() - self;
-        }
-    }
 }
 
 impl<'a, T: Unit<T>, const FROM: usize, const INSIDE: usize> LayerNeuron<T, FROM, INSIDE> {
@@ -84,7 +74,6 @@ impl<'a, T: Unit<T>, const FROM: usize, const INSIDE: usize> LayerNeuron<T, FROM
     {
         LayerNeuron {
             weights: [[T::default(); FROM]; INSIDE],
-            sum: [None; INSIDE],
             neurons: [None; INSIDE],
             activation_function,
             error_function,
@@ -120,7 +109,7 @@ impl<'a, T: Unit<T>, const FROM: usize, const INSIDE: usize> LayerNeuron<T, FROM
                     signi = signi * T::not_unit();
                 }
                 begin[j][i] = begin[j][i] * (temp + T::unit()) * signi * signj;
-                // begin[j][i] = begin[j][i] * (temp + T::unit());
+                // e[i] = e[i] * (temp + T::unit());
             }
         }
         begin
@@ -128,7 +117,6 @@ impl<'a, T: Unit<T>, const FROM: usize, const INSIDE: usize> LayerNeuron<T, FROM
     fn new_val(val: T, activation_function: fn(T) -> T, error_function: fn(T) -> T) -> Self {
         LayerNeuron {
             weights: Self::fun(val),
-            sum: [None; INSIDE],
             neurons: [None; INSIDE],
             activation_function,
             error_function,
@@ -148,43 +136,44 @@ impl<'a, T: Unit<T>, const FROM: usize, const INSIDE: usize> LayerNeuron<T, FROM
     where
         T: Debug,
     {
-        for e in &mut self.sum {
+        for e in &mut self.neurons {
             *e = None
         }
         for i in 0..FROM {
             for j in 0..INSIDE {
-                if let Some(current_value) = self.sum[j] {
+                if let Some(current_value) = self.neurons[j] {
                     // println!(
                     //     "{:?} | {:?} | {:?}",
                     //     current_value, inputsa[i], self.weights[j][i]
                     // );
-                    self.sum[j] = Some(current_value + inputsa[i] * self.weights[j][i])
+                    self.neurons[j] = Some(current_value + inputsa[i] * self.weights[j][i])
                 } else {
                     // println!("NIV | {:?} | {:?}", inputsa[i], self.weights[j][i]);
-                    self.sum[j] = Some(inputsa[i] * self.weights[j][i]);
+                    self.neurons[j] = Some(inputsa[i] * self.weights[j][i]);
                 }
             }
         }
 
         for j in 0..INSIDE {
-            self.neurons[j] = Some((self.activation_function)(self.sum[j].unwrap()));
+            self.neurons[j] = Some((self.activation_function)(self.neurons[j].unwrap()));
         }
     }
-    fn learn(&mut self, supposed_output: [T; INSIDE], inpa: [T; FROM], bias: T) -> [T; FROM]
+    fn learn(&mut self, supposed_output: [T; INSIDE], bias: T) -> [T; FROM]
     where
         T: Default,
     {
         let mut input_error = [T::default(); FROM];
         for i in 0..FROM {
             for j in 0..INSIDE {
+                // self.weights[j][i] = self.weights[j][i]
+                //     - bias * (self.activation_function)(self.neurons[j].unwrap(), unit);
                 let error = self.neurons[j].unwrap() - supposed_output[j];
-                // let error = self.weights[j][i] * inpa[i] - supposed_output[j];
-                // self.weights[j][i] = self.weights[j][i] - bias * inpa[i] * error;
-                // input_error[i] = input_error[i]
-                //     + bias * self.weights[j][i] * error * (self.error_function)(inpa[i]);
-                self.weights[j][i] = self.weights[j][i] - bias * inpa[i] * error;
+                self.weights[j][i] = self.weights[j][i] - bias * self.neurons[j].unwrap() * error;
                 input_error[i] = input_error[i]
-                    + self.weights[j][i] * (self.error_function)(self.sum[j].unwrap());
+                    + bias
+                        * self.weights[j][i]
+                        * error
+                        * (self.error_function)(self.neurons[j].unwrap() / self.weights[j][i]);
             }
         }
         for j in 0..INSIDE {
@@ -193,35 +182,15 @@ impl<'a, T: Unit<T>, const FROM: usize, const INSIDE: usize> LayerNeuron<T, FROM
         input_error
     }
 
-    // fn learn_option(
-    //     &mut self,
-    //     supposed_output: [Option<T>; INSIDE],
-    //     inpa: [T; FROM],
-    //     bias: T,
-    // ) -> [T; FROM]
-    // where
-    //     T: Default,
-    // {
-    //     let mut tempa = [T::default(); INSIDE];
-    //     for i in 0..INSIDE {
-    //         tempa[i] = supposed_output[i].unwrap()
-    //     }
-    //     self.learn(tempa, inpa, bias)
-    // }
-    fn learn_option2(
-        &mut self,
-        supposed_output: [T; INSIDE],
-        inpa: [Option<T>; FROM],
-        bias: T,
-    ) -> [T; FROM]
+    fn learn_option(&mut self, error: [Option<T>; INSIDE], bias: T) -> [T; FROM]
     where
         T: Default,
     {
-        let mut tempa = [T::default(); FROM];
+        let mut tempa = [T::default(); INSIDE];
         for i in 0..FROM {
-            tempa[i] = inpa[i].unwrap()
+            tempa[i] = error[i].unwrap()
         }
-        self.learn(supposed_output, tempa, bias)
+        self.learn(tempa, bias)
     }
 }
 
@@ -250,25 +219,25 @@ impl<
         const NUM_OUT: usize,
     > SquareNetwork<T, SIZE, HEIGHT, NUM_IN, NUM_OUT>
 {
-    // fn new(function: fn(T) -> T) -> Self
-    // where
-    //     T: Default,
-    // {
-    //     // let mut temp = ;
-    //     SquareNetwork {
-    //         inputs: [T::default(); NUM_IN],
-    //         layers_in: LayerNeuron::new(function, function),
-    //         layers: [LayerNeuron::new(function, function); SIZE],
-    //         layers_out: LayerNeuron::new(function, function),
-    //         outputs: [T::default(); NUM_OUT],
-    //     }
-    // }
+    fn new(function: fn(T) -> T) -> Self
+    where
+        T: Default,
+    {
+        // let mut temp = ;
+        SquareNetwork {
+            inputs: [T::default(); NUM_IN],
+            layers_in: LayerNeuron::new(function, function),
+            layers: [LayerNeuron::new(function, function); SIZE],
+            layers_out: LayerNeuron::new(function, function),
+            outputs: [T::default(); NUM_OUT],
+        }
+    }
     fn new_val(
         val: T,
         function: fn(T) -> T,
         error_function: fn(T) -> T,
-        inputs: [T; NUM_IN],
-        outputs: [T; NUM_OUT],
+        mut inputs: [T; NUM_IN],
+        mut outputs: [T; NUM_OUT],
     ) -> Self
     where
         T: Default,
@@ -285,6 +254,11 @@ impl<
     where
         T: Display + Debug + Default,
     {
+        // println!("------0-------\n{:#?}------0-------\n", &self);
+        // println!("{:?} | {:?}", self.inputs, unsafe { *self.inputs });
+        // self.layers_in
+        //     .calculate_first_layer(unsafe { *self.inputs });
+        // println!("{:?} | {:?}", self.inputs, unsafe { *self.inputs });
         self.layers_in.calculate_first_layer(self.inputs);
         print!("!");
         if SIZE > 0 {
@@ -300,36 +274,65 @@ impl<
             self.layers_out.calculate(self.layers_in.neurons);
         }
         self.output()
+        // println!("------7-------\n{:#?}------7-------\n", &self);
     }
     fn learn(&mut self, bias: T)
     where
         T: Display + Debug + Default,
     {
         if SIZE > 0 {
-            let err =
-                self.layers_out
-                    .learn_option2(self.outputs, self.layers[SIZE - 1].neurons, bias);
-
-            let mut arr;
-            if SIZE > 1 {
-                arr = self.layers[SIZE - 1].learn_option2(err, self.layers[SIZE - 2].neurons, bias);
-                for i in 2..SIZE - 1 {
-                    arr = self.layers[SIZE - i].learn_option2(
-                        arr,
-                        self.layers[SIZE - i - 1].neurons,
-                        bias,
-                    );
-                }
-                arr = self.layers[0].learn_option2(arr, self.layers_in.neurons, bias);
-            } else {
-                arr = self.layers[0].learn_option2(err, self.layers_in.neurons, bias);
+            // let err = self.layers_out.learn(unsafe { *self.outputs }, bias);
+            let err = self.layers_out.learn(self.outputs, bias);
+            let mut arr = self.layers[SIZE - 1].learn(err, bias);
+            for i in 2..SIZE {
+                arr = self.layers[SIZE - i].learn(arr, bias);
             }
-            self.layers_in.learn(arr, self.inputs, bias);
+            self.layers_in.learn(arr, bias);
         } else {
+            // self.layers_out.learn(unsafe { *self.outputs }, bias);
+            // self.layers_in.learn_option(self.layers_out.neurons, bias);
             todo!()
         }
+        // println!("------0-------\n{:#?}------0-------\n", &self);
+        // self.layers_in.calculate_first_layer(*inputsz);
+        // self.layers_in
+        //     .calculate_first_layer(unsafe { *self.inputs });
+        // if SIZE > 0 {
+        //     self.layers[0].calculate(self.layers_in.neurons);
+        //     for i in 1..SIZE {
+        //         self.layers[i].calculate(self.layers[i - 1].neurons);
+        //     }
+        //     self.layers_out.calculate(self.layers[SIZE - 1].neurons);
+        // } else {
+        //     self.layers_out.calculate(self.layers_in.neurons);
+        // }
+        // let mut temp = unsafe { *self.outputs };
+        // for i in 0..NUM_OUT {
+        //     temp[i] = self.layers_out.neurons[i].unwrap();
+        // }
+        // println!("------7-------\n{:#?}------7-------\n", &self);
     }
 
+    // fn expected(&mut self, expected_output: [T; NUM_OUT]) {}
+
+    // fn outputs(&mut self) -> [T; NUM_OUT]
+    // //deprecated
+    // where
+    //     T: Default + Display + Debug,
+    // {
+    //     let mut to_return = [T::default(); NUM_OUT];
+    //     'fora: for i in 0..NUM_OUT {
+    //         if let Some(value) = self.outputs[i] {
+    //             to_return[i] = value
+    //         } else {
+    //             self.calculate();
+    //             for i in 0..NUM_OUT {
+    //                 to_return[i] = self.outputs[i].unwrap()
+    //             }
+    //         }
+    //     }
+    //     to_return
+    // }
     fn output(&self) -> [T; NUM_OUT] {
         let mut temp = [T::default(); NUM_OUT];
         for i in 0..NUM_OUT {
@@ -344,17 +347,13 @@ impl<
 
 fn main() {
     println!("Hello, world!");
-    let inputs = [0.5, 0.2];
-    let outputs = [0.2, -0.4, 0.5];
+    let mut inputs = [0.5, 0.2];
+    let outputs = [0.2, 0.4, 0.5];
     let mut my_net =
-        // SquareNetwork::<f64, 1, 3, 2, 3>::new_val(0.5, shota, oppai, inputs, outputs);
-    // SquareNetwork::<f64, 1, 3, 2, 3>::new_val(0.1, netori, tsundere, inputs, outputs);
-    // SquareNetwork::<f64, 1, 3, 2, 3>::new_val(0.1, monster, tentacles, inputs, outputs);
-    // SquareNetwork::<f64, 1, 3, 2, 3>::new_val(0.1, lol, lol2, inputs, outputs);
-    SquareNetwork::<f64, 1, 3, 2, 3>::new_val(0.5, furry, futanari, inputs, outputs);
-    // SquareNetwork::<f64, 1, 3, 2, 3>::new_val(0.5, wtf, ok, inputs, outputs);
-    my_net.calculate();
-    println!("{:#?} {:?}", my_net, inputs);
+        SquareNetwork::<f64, 1, 3, 2, 3>::new_val(0.1, shota, futanari, inputs, outputs);
+    // let mut my_net =
+    //     SquareNetwork::<f64, 1, 3, 2, 3>::new_val(0.1, netori, tsundere, inputs, outputs);
+    // println!("{:#?} {:?}", my_net, inputs);
     // my_net.inputs = &mut inputs;
     let mut end = false;
     'a: for loli in 0..10_000 {
@@ -367,13 +366,13 @@ fn main() {
         // println!("{:#?}", some);
         for i in 0..3 {
             if (outputs[i] - some[i]) * (outputs[i] - some[i]) <= 0.0001 {
-                // println!("{:#?}", (outputs[i] - some[i]));
+                println!("{:#?}", (outputs[i] - some[i]));
                 temp += 1
             }
         }
-        // if temp != 0 {
-        //     println!("{}", "lol")
-        // }
+        if temp != 0 {
+            println!("{}", "lol")
+        }
         if temp == 3 && end {
             println!("{:#?}", loli);
             break 'a;
@@ -389,14 +388,17 @@ fn main() {
     my_net.calculate();
     println!("{:#?}", my_net);
     println!("{:#?}", "wtf");
-    println!("{:?} {:?}", furry(-10.), futanari(-10.));
-    println!("{:?} {:?}", furry(-1.), futanari(-1.));
-    println!("{:?} {:?}", furry(-0.1), futanari(-0.1));
-    println!("{:?} {:?}", furry(-0.), futanari(-0.));
-    println!("{:?} {:?}", furry(0.), futanari(0.));
-    println!("{:?} {:?}", furry(0.1), futanari(0.1));
-    println!("{:?} {:?}", furry(1.), futanari(1.));
-    println!("{:?} {:?}", furry(10.), futanari(10.));
+    // inputs = [2., 3.];
+    // my_net.calculate();
+    // println!("{:#?}", my_net);
+    // println!("{:#?}", espa(1. as f64, 10, 1.));
+    // println!("{:#?}", espa(100. as f64, 10, 1.));
+    // println!("{:?}", f64::unit());
+    // println!("{:?}", min(f64::unit(), f64::default()));
+    // println!("{:?}", min(f64::default(), f64::unit()));
+    // println!("{:?}", max(f64::unit(), f64::default()));
+    // println!("{:?}", max(f64::default(), f64::unit()));
+    println!("{:?}", max(-10., -0.1));
 }
 
 fn lol<T>(some: T) -> T
@@ -413,12 +415,15 @@ fn lol2<T>(some: T) -> T
 where
     T: Unit<T>,
 {
-    // let lols_some = lol(some);
-    // let retunrd = ((T::unit() + T::unit()) * lols_some - T::unit()) * lols_some;
+    // let var = clamp(some, T::default(), some / some);
+    // let retunrd =
+    //     (some / some + some / some + some / some + some / some + some / some + some / some)
+    //         * (var - var * var);
+    // println!("lol2 {:?}| {:?} | {:?}", some, var, retunrd);
+    // retunrd
+    let lols_some = lol(some);
+    let retunrd = ((T::unit() + T::unit()) * lols_some - T::unit()) * lols_some;
     // println!("lol2 {:?} | {:?} | {:?}", some, lols_some, retunrd);
-    let var = clamp(some, T::default(), T::unit());
-    let three = T::unit() + T::unit() + T::unit();
-    let retunrd = (three + three) * (var - var * var);
     retunrd
 }
 
@@ -435,23 +440,16 @@ where
 
     return val;
 }
-// P\left(x\right)E\left(x,V_{1}\right)+P\left(-x\right)J\left(x,V_{1}\right)
+
 fn espa<T>(x: T, vara: usize) -> T
 where
     T: Unit<T>,
 {
     let mut temp = T::unit();
-    if x > T::default() {
-        for i in 1..vara {
-            temp = temp + mula(x, i) / mulaa(i);
-        }
-        return temp;
-    } else {
-        for i in 1..vara {
-            temp = temp + mula(T::default() - x, i) / mulaa(i);
-        }
-        return T::unit() / temp;
+    for i in 0..vara {
+        temp = temp + mula(x, i) / mulaa(i);
     }
+    temp
 }
 
 fn mula<T>(val: T, recurent: usize) -> T
@@ -482,7 +480,7 @@ where
 {
     T::unit() / (T::unit() + espa(T::default() - val, PRECISION))
 }
-fn oppai<T>(val: T) -> T
+fn futanari<T>(val: T) -> T
 where
     T: Unit<T> + Default,
 {
@@ -515,11 +513,7 @@ fn netori<T>(val: T) -> T
 where
     T: Unit<T> + Debug,
 {
-    let one = T::unit();
-    let two = one + one;
-    let five = two + two + one;
-    let ten = five + five;
-    let zade = max(val / ten, val);
+    let zade = max(T::default(), val);
     // println!("{:?}, {:?}", val, zade);
     zade
 }
@@ -530,11 +524,7 @@ where
     if T::default() <= val {
         return T::unit();
     } else {
-        let one = T::unit();
-        let two = one + one;
-        let five = two + two + one;
-        let ten = five + five;
-        return one / ten;
+        return T::default();
     }
 }
 
@@ -548,45 +538,4 @@ fn min_test() {
 fn max_test() {
     assert_eq!(max(f64::unit(), f64::default()), f64::unit());
     assert_eq!(max(f64::default(), f64::unit()), f64::unit());
-}
-
-fn monster<T>(val: T) -> T
-where
-    T: Unit<T> + Debug,
-{
-    shota(val) * netori(val)
-}
-fn tentacles<T>(val: T) -> T
-where
-    T: Unit<T>,
-{
-    oppai(val) * tsundere(val)
-}
-
-fn furry<T>(val: T) -> T
-where
-    T: Unit<T>,
-{
-    ((T::unit() + T::unit()) * shota(val) - T::unit()) * T::abs(val)
-}
-
-fn futanari<T>(val: T) -> T
-where
-    T: Unit<T>,
-{
-    (T::unit() + T::unit()) * val * oppai(val)
-        + ((T::unit() + T::unit()) * shota(val) - T::unit()) * val / T::abs(val)
-}
-
-fn wtf<T>(val: T) -> T
-where
-    T: Unit<T>,
-{
-    val
-}
-fn ok<T>(val: T) -> T
-where
-    T: Unit<T>,
-{
-    T::unit()
 }
