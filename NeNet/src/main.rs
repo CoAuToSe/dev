@@ -1,7 +1,12 @@
-use std::{
-    cmp::PartialEq,
+#![no_implicit_prelude]
+extern crate core;
+use core::{
+    cmp::{PartialEq, PartialOrd},
+    default::Default,
     fmt::{Debug, Display},
+    marker::Copy,
     ops::{Add, Div, Mul, Not, Sub},
+    option::Option::{self, None, Some},
     str::FromStr,
 };
 
@@ -286,16 +291,16 @@ impl<
         T: Display + Debug + Default,
     {
         self.layers_in.calculate_first_layer(self.inputs);
-        print!("!");
+        // print!("!");
         if SIZE > 0 {
             self.layers[0].calculate(self.layers_in.neurons);
-            print!("!");
+            // print!("!");
             for i in 1..SIZE {
                 self.layers[i].calculate(self.layers[i - 1].neurons);
-                print!("!");
+                // print!("!");
             }
             self.layers_out.calculate(self.layers[SIZE - 1].neurons);
-            print!("!");
+            // print!("!");
         } else {
             self.layers_out.calculate(self.layers_in.neurons);
         }
@@ -326,6 +331,8 @@ impl<
             }
             self.layers_in.learn(arr, self.inputs, bias);
         } else {
+            extern crate core;
+            use core::todo;
             todo!()
         }
     }
@@ -343,6 +350,8 @@ impl<
 }
 
 fn main() {
+    extern crate std;
+    use std::{print, println};
     println!("Hello, world!");
     let inputs = [0.5, 0.2];
     let outputs = [0.2, -0.4, 0.5];
@@ -540,12 +549,16 @@ where
 
 #[test]
 fn min_test() {
+    extern crate core;
+    use core::assert_eq;
     assert_eq!(min(f64::unit(), f64::default()), f64::default());
     assert_eq!(min(f64::default(), f64::unit()), f64::default());
 }
 
 #[test]
 fn max_test() {
+    extern crate core;
+    use core::assert_eq;
     assert_eq!(max(f64::unit(), f64::default()), f64::unit());
     assert_eq!(max(f64::default(), f64::unit()), f64::unit());
 }
