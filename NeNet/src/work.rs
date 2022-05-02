@@ -369,32 +369,12 @@ impl<
     where
         T: Default,
     {
-        if SIZE > 1 {
-            SquareNetwork {
-                inputs: inputs,
-                layers_in: LayerNeuron::new_val(val, function, error_function),
-                layers: [LayerNeuron::new_val(val, function, error_function); SIZE],
-                layers_out: LayerNeuron::new_val(val, function, error_function),
-                outputs: outputs,
-            }
-        } else {
-            if SIZE == 1 {
-                SquareNetwork {
-                    inputs: inputs,
-                    layers_in: LayerNeuron::new_val(val, function, error_function),
-                    layers: [LayerNeuron::default(); SIZE],
-                    layers_out: LayerNeuron::new_val(val, function, error_function),
-                    outputs: outputs,
-                }
-            } else {
-                SquareNetwork {
-                    inputs: inputs,
-                    layers_in: LayerNeuron::default(),
-                    layers: [LayerNeuron::default(); SIZE],
-                    layers_out: LayerNeuron::new_val(val, function, error_function),
-                    outputs: outputs,
-                }
-            }
+        SquareNetwork {
+            inputs: inputs,
+            layers_in: LayerNeuron::new_val(val, function, error_function),
+            layers: [LayerNeuron::new_val(val, function, error_function); SIZE],
+            layers_out: LayerNeuron::new_val(val, function, error_function),
+            outputs: outputs,
         }
     }
     fn calculate(&mut self) -> [T; NUM_OUT]
@@ -416,42 +396,6 @@ impl<
             self.layers_out.calculate(self.layers_in.neurons);
         }
         self.output()
-    }
-
-    fn supposed_calculate(&mut self) -> [T; NUM_OUT]
-    where
-        T: Display + Debug + Default,
-    {
-        if SIZE > 1 {
-            self.layers_in.calculate_first_layer(self.inputs);
-            self.layers[0].calculate(self.layers_in.neurons);
-            // print!("!");
-            for i in 1..SIZE {
-                self.layers[i].calculate(self.layers[i - 1].neurons);
-                // print!("!");
-            }
-            self.layers_out.calculate(self.layers[SIZE - 1].neurons);
-            // print!("!");
-        } else {
-            if SIZE == 1 {
-                self.layers_in.calculate_first_layer(self.inputs);
-                self.layers_out.calculate(self.layers_in.neurons);
-            } else {
-                core::assert_eq!(
-                    HEIGHT,
-                    NUM_IN,
-                    "HEIGHT and NUM_IN must be the same, currently: HEIGHT={} and NUM_IN={}",
-                    HEIGHT,
-                    NUM_IN
-                );
-                let mut tema = [T::default(); HEIGHT];
-                for i in 0..NUM_IN {
-                    tema[i] = self.inputs[i]
-                }
-                self.layers_out.calculate_first_layer(tema);
-            }
-        }
-        return self.output();
     }
     fn learn(&mut self, bias: T)
     where
@@ -487,7 +431,7 @@ impl<
     where
         T: Display + Debug + Default,
     {
-        if SIZE > 1 {
+        if SIZE > 0 {
             let outputs_errors = {
                 let mut temp = self.outputs;
                 for i in 0..NUM_OUT {
@@ -502,7 +446,7 @@ impl<
             );
 
             let mut arr;
-            if SIZE > 2 {
+            if SIZE > 1 {
                 arr = self.layers[SIZE - 1].supposed_learn_option2(
                     before_last_error,
                     self.layers[SIZE - 2].neurons,
@@ -525,43 +469,9 @@ impl<
             }
             self.layers_in.supposed_learn(arr, self.inputs, bias);
         } else {
-            if SIZE == 1 {
-                let outputs_errors = {
-                    let mut temp = self.outputs;
-                    for i in 0..NUM_OUT {
-                        temp[i] = self.layers_out.neurons[i].unwrap() - temp[i]
-                    }
-                    temp
-                };
-                let before_last_error = self.layers_out.supposed_learn_option2(
-                    outputs_errors,
-                    self.layers_in.neurons,
-                    bias,
-                );
-
-                self.layers_in
-                    .supposed_learn(before_last_error, self.inputs, bias);
-            } else {
-                let outputs_errors = {
-                    let mut temp = self.outputs;
-                    for i in 0..NUM_OUT {
-                        temp[i] = self.layers_out.neurons[i].unwrap() - temp[i]
-                    }
-                    temp
-                };
-                core::assert_eq!(
-                    HEIGHT,
-                    NUM_IN,
-                    "HEIGHT and NUM_IN must be the same, currently: HEIGHT={} and NUM_IN={}",
-                    HEIGHT,
-                    NUM_IN
-                );
-                let mut tema = [T::default(); HEIGHT];
-                for i in 0..NUM_IN {
-                    tema[i] = self.inputs[i]
-                }
-                self.layers_out.supposed_learn(outputs_errors, tema, bias);
-            }
+            extern crate core;
+            use core::todo;
+            todo!()
         }
     }
 
@@ -577,15 +487,14 @@ impl<
     }
 }
 
-const ERROR_SCALED: bool = false;
+const ERROR_SCALED: bool = true;
 const PRECISION: usize = 10;
 const MAX_STEPS: usize = 10_000;
-const BIAS: f64 = 0.001;
+const BIAS: f64 = 0.01;
 
 fn main() {
     extern crate std;
-    use std::{panic, print, println};
-    panic!("need to destroy layer_in in the network to make it work as intended");
+    use std::{print, println};
     println!("Hello, world!");
 
     let inpae = [[0., 0.], [1., 0.], [0., 1.], [1., 1.]];
@@ -596,8 +505,8 @@ fn main() {
     let outputs = [0.];
 
     // working with a BIAS = 1. // to use is value is clamped
-    // let mut my_net =
-    // SquareNetwork::<f64, 1, 3, 2, 1>::new_val(0.5, furry, futanari, inputs, outputs);
+    let mut my_net =
+        // SquareNetwork::<f64, 1, 3, 2, 1>::new_val(0.5, furry, futanari, inputs, outputs);
 
     // let mut my_net = SquareNetwork::<f64, 1, 3, 2, 3>::new_val(0.1, monster, tentacles, inputs, outputs);
 
@@ -622,8 +531,8 @@ fn main() {
     // working with a low BIAS ~= 0.01
     // let mut my_net = SquareNetwork::<f64, 1, 3, 2, 3>::new_val(0.5, wtf, ok, inputs, outputs);
 
-    let mut my_net =
-        SquareNetwork::<f64, 1, 3, 2, 1>::new_val(0.5, poker_face, troll_face, inputs, outputs);
+    // let mut my_net =
+        SquareNetwork::<f64, 2, 3, 2, 1>::new_val(0.5, poker_face, troll_face, inputs, outputs);
 
     my_net.calculate();
     println!("{:#?} {:?}", my_net, my_net.inputs);
@@ -640,7 +549,7 @@ fn main() {
         my_net.inputs = inpae[loli % inpae.len()];
         my_net.outputs = [oute[loli % oute.len()]; 1];
         // let some = my_net.output();
-        let some = my_net.supposed_calculate();
+        let some = my_net.calculate();
         for i in 0..some.len() {
             if some[i].is_nan() {
                 end = true
@@ -681,8 +590,7 @@ fn main() {
         print!(".");
     }
     my_net.calculate();
-    println!("{:#?}", my_net);
-    // println!("\n{:#?}", temp);
+    println!("{:#?}", my_net.layers_out.neurons);
     println!("{:#?}", "wtf");
     println!("{:?} {:?}", furry(-10.), futanari(-10.));
     println!("{:?} {:?}", furry(-1.), futanari(-1.));
@@ -973,10 +881,7 @@ fn poker_face<T>(val: T) -> T
 where
     T: Unit<T>,
 {
-    // lena(espa(val, PRECISION), PRECISION)
-    // espa(lena(val, PRECISION), PRECISION)
-    (espa(lena(val, PRECISION), PRECISION) - espa(lena(T::default(), PRECISION), PRECISION))
-        * (val / T::abs(val))
+    lena(espa(val, PRECISION), PRECISION)
 }
 fn troll_face<T>(val: T) -> T
 where
@@ -998,7 +903,7 @@ where
     let billion = thousand * thousand * thousand;
 
     // if T::abs(val) > T::unit() {
-    (funca(val + T::unit() / billion) - funca(val - T::unit() / billion)) / (two / billion)
+    (funca(val + T::unit() / billion) - funca(val)) / (T::unit() / billion)
     // } else {
     //     (poker_face(val + val) - poker_face(val)) / (val)
     // }

@@ -369,32 +369,12 @@ impl<
     where
         T: Default,
     {
-        if SIZE > 1 {
-            SquareNetwork {
-                inputs: inputs,
-                layers_in: LayerNeuron::new_val(val, function, error_function),
-                layers: [LayerNeuron::new_val(val, function, error_function); SIZE],
-                layers_out: LayerNeuron::new_val(val, function, error_function),
-                outputs: outputs,
-            }
-        } else {
-            if SIZE == 1 {
-                SquareNetwork {
-                    inputs: inputs,
-                    layers_in: LayerNeuron::new_val(val, function, error_function),
-                    layers: [LayerNeuron::default(); SIZE],
-                    layers_out: LayerNeuron::new_val(val, function, error_function),
-                    outputs: outputs,
-                }
-            } else {
-                SquareNetwork {
-                    inputs: inputs,
-                    layers_in: LayerNeuron::default(),
-                    layers: [LayerNeuron::default(); SIZE],
-                    layers_out: LayerNeuron::new_val(val, function, error_function),
-                    outputs: outputs,
-                }
-            }
+        SquareNetwork {
+            inputs: inputs,
+            layers_in: LayerNeuron::new_val(val, function, error_function),
+            layers: [LayerNeuron::new_val(val, function, error_function); SIZE],
+            layers_out: LayerNeuron::new_val(val, function, error_function),
+            outputs: outputs,
         }
     }
     fn calculate(&mut self) -> [T; NUM_OUT]
@@ -577,15 +557,14 @@ impl<
     }
 }
 
-const ERROR_SCALED: bool = false;
+const ERROR_SCALED: bool = true;
 const PRECISION: usize = 10;
 const MAX_STEPS: usize = 10_000;
 const BIAS: f64 = 0.001;
 
 fn main() {
     extern crate std;
-    use std::{panic, print, println};
-    panic!("need to destroy layer_in in the network to make it work as intended");
+    use std::{print, println};
     println!("Hello, world!");
 
     let inpae = [[0., 0.], [1., 0.], [0., 1.], [1., 1.]];
@@ -596,8 +575,8 @@ fn main() {
     let outputs = [0.];
 
     // working with a BIAS = 1. // to use is value is clamped
-    // let mut my_net =
-    // SquareNetwork::<f64, 1, 3, 2, 1>::new_val(0.5, furry, futanari, inputs, outputs);
+    let mut my_net =
+        // SquareNetwork::<f64, 1, 3, 2, 1>::new_val(0.5, furry, futanari, inputs, outputs);
 
     // let mut my_net = SquareNetwork::<f64, 1, 3, 2, 3>::new_val(0.1, monster, tentacles, inputs, outputs);
 
@@ -622,8 +601,8 @@ fn main() {
     // working with a low BIAS ~= 0.01
     // let mut my_net = SquareNetwork::<f64, 1, 3, 2, 3>::new_val(0.5, wtf, ok, inputs, outputs);
 
-    let mut my_net =
-        SquareNetwork::<f64, 1, 3, 2, 1>::new_val(0.5, poker_face, troll_face, inputs, outputs);
+    // let mut my_net =
+        SquareNetwork::<f64, 1, 2, 2, 1>::new_val(0.5, poker_face, troll_face, inputs, outputs);
 
     my_net.calculate();
     println!("{:#?} {:?}", my_net, my_net.inputs);
@@ -681,8 +660,8 @@ fn main() {
         print!(".");
     }
     my_net.calculate();
-    println!("{:#?}", my_net);
-    // println!("\n{:#?}", temp);
+    // println!("{:#?}", my_net);
+    println!("\n{:#?}", temp);
     println!("{:#?}", "wtf");
     println!("{:?} {:?}", furry(-10.), futanari(-10.));
     println!("{:?} {:?}", furry(-1.), futanari(-1.));
@@ -973,10 +952,10 @@ fn poker_face<T>(val: T) -> T
 where
     T: Unit<T>,
 {
-    // lena(espa(val, PRECISION), PRECISION)
+    lena(espa(val, PRECISION), PRECISION)
     // espa(lena(val, PRECISION), PRECISION)
-    (espa(lena(val, PRECISION), PRECISION) - espa(lena(T::default(), PRECISION), PRECISION))
-        * (val / T::abs(val))
+    // (espa(lena(val, PRECISION), PRECISION) - espa(lena(T::default(), PRECISION), PRECISION))
+    //     * (val / T::abs(val))
 }
 fn troll_face<T>(val: T) -> T
 where
