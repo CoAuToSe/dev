@@ -56,7 +56,9 @@ use std::{
 fn sent_sometg(addrty : Option<&str>, addrty2 : Option<String>) -> std::io::Result<String> {
     let mut stream = match addrty {
         Some(art) => TcpStream::connect(art)?,
-        None => TcpStream::connect("127.0.0.1:8080")?,
+        None => TcpStream::connect("127.0.0.1:17172")?,
+        // None => TcpStream::connect("109.215.50.59:443")?,
+        // None => TcpStream::connect("172.22.160.1:443")?,
     };
     let mut my_adret = match addrty2 {
             Some(art) => art,
@@ -81,7 +83,9 @@ fn sent_sometg(addrty : Option<&str>, addrty2 : Option<String>) -> std::io::Resu
 
 fn main() {
     let mut index = 0;
-    let listener = TcpListener::bind("127.0.0.1:8080").unwrap();
+    let listener = TcpListener::bind("192.168.1.235:712").unwrap();
+    // let listener = TcpListener::bind("172.22.160.1:443").unwrap();
+    // let listener = TcpListener::bind("127.0.0.1:8080").unwrap();
     println!("{:?}", listener);
     for stream in listener.incoming() {
         index += 1;

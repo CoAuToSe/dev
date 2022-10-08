@@ -109,7 +109,9 @@ use std::{
 fn sent_sometg(addrty : Option<&str>, addrty2 : Option<String>) -> std::io::Result<String> {
     let mut stream = match addrty {
         Some(art) => TcpStream::connect(art)?,
-        None => TcpStream::connect("127.0.0.1:8080")?,
+        // None => TcpStream::connect("127.0.0.1:8080")?,
+        None => TcpStream::connect("109.215.50.59:1712")?,  // get by the command "curl ipconfig.me" // or for ipv6 "curl https://ipv6.icanhazip.com" 
+        // None => TcpStream::connect("172.22.160.1:443")?,
     };
     let mut my_adret = match addrty2 {
             Some(art) => art,
