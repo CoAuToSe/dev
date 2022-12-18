@@ -1,5 +1,5 @@
 [package]
-name = "wgsl-playground-cats"
+name = "wgsl-playground-cats-1"
 version = "0.1.2"
 authors = ["Paul Butler <paulgb@gmail.com>"]
 edition = "2018"
@@ -11,9 +11,15 @@ resolver = "2"
 
 [dependencies]
 bytemuck = { version = "1.7.2", features = ["derive"] }
-clap = "3.0.0-beta.2"
+# clap = "3.0.0-beta.2"
+# futures = "0.3.16"
+# notify = "4.0.17"
+# wgpu = { version = "0.12.0", features = ['default', 'naga'] }
+# winit = "0.26.0"
+# wgpu-subscriber = "0.1.0"
+clap = "*"
 futures = "0.3.16"
-notify = "4.0.17"
-wgpu = { version = "0.12.0", features = ['default', 'naga'] }
-winit = "0.26.0"
+notify = "*"
+wgpu = { version = "*", features = ['default', 'naga'] }
+winit = "*"
 wgpu-subscriber = "0.1.0"
