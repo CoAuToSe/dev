@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="yes"?>
+<svg width="1000" height="1000" xmlns="http://www.w3.org/2000/svg">
+    <g>
+        <title>SVG SMIL Animate with Path</title>
+        <rect x="0" y="0" width="300" height="100" stroke="black" stroke-width="1" />
+        <rect x="0" y="0" width="20" height="20" fill="blue" stroke="black" stroke-width="1">
+            <animateMotion path="M 250,80 H 50 Q 30,80 30,50 Q 30,20 50,20 H 250 Q 280,20,280,50 Q 280,80,250,80Z"
+                dur="3s" repeatCount="indefinite" rotate="auto" accumulate="sum" />
+        </rect>
+        <path d="M 250,80 H 50 Q 30,80 30,50 Q 30,20 50,20 H 250 Q 280,20,280,50 Q 280,80,250,80Z" fill="none"
+            stroke="white" />
+        <path d="M 250,80 H 50 Q 30,80 30,50 Q 30,20 50,20 H 250 Q 280,20 280,50 Q 280,80 250,80 Z" fill="none"
+            stroke="purple" />
+    </g>
+    <g>
+
+    </g>
+    <g>
+
+    </g>
+    <g>
+
+    </g>
+</svg>

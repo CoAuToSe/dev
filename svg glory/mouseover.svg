@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="yes"?>
+<svg width="1000" height="1000" xmlns="http://www.w3.org/2000/svg">
+    <!-- <rect x="0" y="0" width="300" height="100" stroke="black" stroke-width="1" /> -->
+    <rect x="0" y="0" width="20" height="20" fill="blue" stroke="black" stroke-width="1">
+        <!-- <animate dur="10s" repeatDur="indefinite" attributeName="top" from="20" by="10" additive="replace"
+            accumulate="sum" /> -->
+        <animateMotion dur="10s" repeatDur="indefinite" path="M 100,100 Z" />
+        <mouseFollow begin="mouseover" dur="5s" additive="replace" fill="remove" />
+    </rect>
+
+</svg>

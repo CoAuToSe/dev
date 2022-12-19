@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="yes"?>
+<svg width="1000" height="1000" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="300" height="100" stroke="black" stroke-width="1" />
+    <rect x="0" y="0" width="20" height="20" fill="blue" stroke="black" stroke-width="1">
+        <animateMotion from="0,0" to="100,0" dur="10s" />
+        <animateMotion values="0,0; 0,5; 0,0" dur="1s" repeatDur="10s" additive="sum" />
+
+    </rect>
+
+</svg>

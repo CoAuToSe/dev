@@ -1,0 +1,15 @@
+<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+    <rect id="me" width="10" height="10">
+        <!-- <animate attributeName="rx" values="0;5;0" dur="10s" repeatCount="indefinite" /> -->
+        <!-- <animate id="A" begin="10s" attributeName="rx" values="0;5;0" dur="10s" />
+        <animate id="B" begin="A.begin+5s" attributeName="rx" values="0;5;0" dur="10s" /> -->
+        <animate id="C" begin="me.click" attributeName="rx" values="0;5;0" dur="10s" />
+        <animate id="D" begin="C.begin+5s" attributeName="rx" values="0;5;0" dur="10s" />
+
+        <a href="#D">
+            <!-- Start the last animation -->
+
+            <circle cx="5" cy="4" r="5" color="aliceblue" />
+        </a>
+    </rect>
+</svg>
