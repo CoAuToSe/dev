@@ -1,0 +1,46 @@
+{
+	"glsl.snippets.ftransform": {
+		"prefix": "ftransform",
+		"body": ["gl_Position = ftransform();"]
+	},
+	"glsl.snippets.main": {
+		"prefix": "void main",
+		"body": ["void main() {", "\t$1", "}"]
+	},
+	"glsl.snippets.#if": {
+		"prefix": "#if",
+		"body": ["#if $1", "\t", "#endif"]
+	},
+	"glsl.snippets.#ifdef": {
+		"prefix": "#ifdef",
+		"body": ["#ifdef $1", "\t", "#endif"]
+	},
+	"glsl.snippets.if": {
+		"prefix": "if",
+		"body": ["if($1) {", "\t", "}"]
+	},
+	"glsl.snippets.else": {
+		"prefix": "else",
+		"body": ["else {", "\t$1", "}"]
+	},
+	"glsl.snippets.elseif": {
+		"prefix": "else if",
+		"body": ["else if($1) {", "\t", "}"]
+	},
+	"glsl.snippets.for": {
+		"prefix": "for",
+		"body": ["for(int i = 0; i < $1; i++) {", "\t", "}"]
+	},
+	"glsl.snippets.while": {
+		"prefix": "while",
+		"body": ["while($1) {", "\t", "}"]
+	},
+	"glsl.snippets.do": {
+		"prefix": "do",
+		"body": ["do {", "\t$1", "} while();"]
+	},
+	"glsl.snippets.switch": {
+		"prefix": "switch",
+		"body": ["switch($1) {", "\tdefault: ;", "}"]
+	}
+}

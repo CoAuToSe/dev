@@ -1,0 +1,191 @@
+Date : 2023-01-07 13:53:57
+Directory : c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include
+Total : 134 files,  -19194 codes, -2047 comments, -3354 blanks, all -24595 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |        134 |    -19,194 |     -2,047 |     -3,354 |    -24,595 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                               | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                  |        134 |    -19,194 |     -2,047 |     -3,354 |    -24,595 |
+| . (Files)                                                                                          |          1 |        149 |         11 |         30 |        190 |
+| ..                                                                                                 |         63 |    -23,939 |     -2,327 |     -4,130 |    -30,396 |
+| ..\src                                                                                             |         63 |    -23,939 |     -2,327 |     -4,130 |    -30,396 |
+| ..\src (Files)                                                                                     |          3 |       -330 |         -4 |        -34 |       -368 |
+| ..\src\animation                                                                                   |          6 |     -3,134 |       -672 |       -497 |     -4,303 |
+| ..\src\audio                                                                                       |          2 |       -357 |        -10 |        -43 |       -410 |
+| ..\src\core                                                                                        |          6 |     -1,058 |        -62 |       -218 |     -1,338 |
+| ..\src\editor                                                                                      |         16 |     -5,870 |       -502 |       -948 |     -7,320 |
+| ..\src\latex                                                                                       |          1 |       -290 |        -27 |        -47 |       -364 |
+| ..\src\math                                                                                        |          1 |       -506 |          0 |       -101 |       -607 |
+| ..\src\multithreading                                                                              |          1 |       -157 |         -2 |        -18 |       -177 |
+| ..\src\parsers                                                                                     |          4 |     -1,203 |        -51 |       -189 |     -1,443 |
+| ..\src\platform                                                                                    |          2 |       -621 |        -26 |        -92 |       -739 |
+| ..\src\renderer                                                                                    |          8 |     -3,726 |       -357 |       -760 |     -4,843 |
+| ..\src\scripting                                                                                   |          4 |     -1,680 |       -158 |       -391 |     -2,229 |
+| ..\src\svg                                                                                         |          5 |     -3,869 |       -334 |       -594 |     -4,797 |
+| ..\src\utils                                                                                       |          2 |       -860 |       -112 |       -154 |     -1,126 |
+| ..\src\video                                                                                       |          2 |       -278 |        -10 |        -44 |       -332 |
+| animation                                                                                          |          6 |        572 |         26 |        114 |        712 |
+| audio                                                                                              |          2 |         55 |          0 |         12 |         67 |
+| core                                                                                               |          8 |        259 |         86 |         86 |        431 |
+| editor                                                                                             |         16 |        408 |          2 |         97 |        507 |
+| latex                                                                                              |          1 |         20 |          0 |         10 |         30 |
+| math                                                                                               |          1 |        202 |          0 |         23 |        225 |
+| multithreading                                                                                     |          2 |         64 |         30 |         10 |        104 |
+| parsers                                                                                            |          4 |        234 |          5 |         56 |        295 |
+| platform                                                                                           |          2 |         79 |          0 |         27 |        106 |
+| renderer                                                                                           |          8 |        380 |         42 |         97 |        519 |
+| scripting                                                                                          |          4 |        107 |          6 |         27 |        140 |
+| shaders                                                                                            |          3 |        117 |         24 |         30 |        171 |
+| svg                                                                                                |          5 |        251 |          4 |         60 |        315 |
+| utils                                                                                              |          6 |      1,781 |         43 |         81 |      1,905 |
+| video                                                                                              |          2 |         67 |          1 |         16 |         84 |
++----------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                           | language | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\animation\Animation.h             | C++      |        377 |         20 |         61 |        458 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\animation\AnimationManager.h      | C++      |         49 |          1 |         15 |         65 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\animation\Axis.h                  | C++      |         26 |          0 |          5 |         31 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\animation\Shapes.h                | C++      |         40 |          0 |         15 |         55 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\animation\SvgFileObject.h         | C++      |         24 |          0 |          5 |         29 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\animation\TextAnimations.h        | C++      |         56 |          5 |         13 |         74 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\audio\Audio.h                     | C++      |         26 |          0 |          7 |         33 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\audio\WavLoader.h                 | C++      |         29 |          0 |          5 |         34 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\core.h                            | C++      |        149 |         11 |         30 |        190 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\core\Application.h                | C++      |         45 |          3 |         13 |         61 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\core\Colors.h                     | C++      |         77 |          0 |          7 |         84 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\core\GladLayer.h                  | C++      |         10 |          0 |          2 |         12 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\core\ImGuiLayer.h                 | C++      |         24 |          0 |          9 |         33 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\core\Input.h                      | C++      |         39 |          1 |          7 |         47 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\core\InternalImGuiConfig.h        | C++      |         10 |         82 |         23 |        115 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\core\ProjectApp.h                 | C++      |         16 |          0 |          7 |         23 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\core\Window.h                     | C++      |         38 |          0 |         18 |         56 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\editor\AnimObjectPanel.h          | C++      |         12 |          0 |          4 |         16 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\editor\AssetManagerPanel.h        | C++      |         13 |          0 |          4 |         17 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\editor\ConsoleLog.h               | C++      |         24 |          0 |          6 |         30 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\editor\DebugPanel.h               | C++      |         12 |          0 |          4 |         16 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\editor\EditorCameraController.h   | C++      |         13 |          0 |          3 |         16 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\editor\EditorGui.h                | C++      |         24 |          0 |          7 |         31 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\editor\EditorSettings.h           | C++      |         26 |          0 |          5 |         31 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\editor\ExportPanel.h              | C++      |         12 |          0 |          4 |         16 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\editor\Gizmos.h                   | C++      |         37 |          0 |          7 |         44 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\editor\ImGuiExtended.h            | C++      |         34 |          0 |         11 |         45 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\editor\ImGuiTimeline.h            | C++      |         89 |          2 |         11 |        102 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\editor\MenuBar.h                  | C++      |         10 |          0 |          2 |         12 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\editor\ProjectScreen.h            | C++      |         22 |          0 |          6 |         28 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\editor\SceneHierarchyPanel.h      | C++      |         19 |          0 |          6 |         25 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\editor\SceneManagementPanel.h     | C++      |         20 |          0 |          6 |         26 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\editor\Timeline.h                 | C++      |         41 |          0 |         11 |         52 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\latex\LaTexLayer.h                | C++      |         20 |          0 |         10 |         30 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\math\DataStructures.h             | C++      |        202 |          0 |         23 |        225 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\multithreading\GlobalThreadPool.h | C++      |         60 |          1 |          8 |         69 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\multithreading\Promise.hpp        | C++      |          4 |         29 |          2 |         35 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\parsers\Common.h                  | C++      |         28 |          0 |          9 |         37 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\parsers\Grammar.h                 | C++      |         88 |          3 |         23 |        114 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\parsers\SyntaxHighlighter.h       | C++      |         85 |          2 |         17 |        104 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\parsers\SyntaxTheme.h             | C++      |         33 |          0 |          7 |         40 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\platform\FileSystemWatcher.h      | C++      |         55 |          0 |         12 |         67 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\platform\Platform.h               | C++      |         24 |          0 |         15 |         39 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\renderer\Colors.h                 | C++      |         23 |          0 |          3 |         26 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\renderer\Fonts.h                  | C++      |         69 |         25 |         23 |        117 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\renderer\Framebuffer.h            | C++      |         45 |          5 |         11 |         61 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\renderer\OrthoCamera.h            | C++      |         18 |          0 |          5 |         23 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\renderer\PerspectiveCamera.h      | C++      |         18 |          0 |          5 |         23 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\renderer\Renderer.h               | C++      |         85 |         11 |         20 |        116 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\renderer\Shader.h                 | C++      |         31 |          0 |          8 |         39 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\renderer\Texture.h                | C++      |         91 |          1 |         22 |        114 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\scripting\GlobalApi.h             | C++      |         48 |          6 |         11 |         65 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\scripting\LuauLayer.h             | C++      |         20 |          0 |          8 |         28 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\scripting\MathAnimGlobals.h       | C++      |         13 |          0 |          2 |         15 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\scripting\ScriptAnalyzer.h        | C++      |         26 |          0 |          6 |         32 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\shaders\default.glsl.hpp          | C++      |         52 |          0 |         10 |         62 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\shaders\screen.glsl.hpp           | C++      |         24 |          0 |          8 |         32 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\shaders\vectorShader.glsl.hpp     | C++      |         41 |         24 |         12 |         77 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\svg\Paths.h                       | C++      |         13 |          0 |          3 |         16 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\svg\Svg.h                         | C++      |        114 |          3 |         24 |        141 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\svg\SvgCache.h                    | C++      |         69 |          1 |         18 |         88 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\svg\SvgParser.h                   | C++      |         16 |          0 |          6 |         22 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\svg\TexturePacker.h               | C++      |         39 |          0 |          9 |         48 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\utils\CMath.h                     | C++      |        164 |         23 |         43 |        230 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\utils\FontAwesome.h               | C++      |          5 |          0 |          3 |          8 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\utils\IconsFontAwesome5.h         | C++      |      1,008 |          3 |          2 |      1,013 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\utils\IconsFontAwesome5Brands.h   | C++      |        462 |          3 |          2 |        467 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\utils\LRUCache.hpp                | C++      |        123 |         14 |         25 |        162 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\utils\TableOfContents.h           | C++      |         19 |          0 |          6 |         25 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\video\Encoder.h                   | C++      |         41 |          1 |         10 |         52 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\include\video\NvidiaEncoder.h             | C++      |         26 |          0 |          6 |         32 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\SingleIncludeImpls.cpp                | C++      |         -8 |          0 |         -2 |        -10 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\animation\Animation.cpp               | C++      |     -1,630 |       -202 |       -183 |     -2,015 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\animation\AnimationManager.cpp        | C++      |       -671 |       -211 |       -145 |     -1,027 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\animation\Axis.cpp                    | C++      |        -60 |       -148 |        -22 |       -230 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\animation\Shapes.cpp                  | C++      |       -190 |        -38 |        -37 |       -265 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\animation\SvgFileObject.cpp           | C++      |       -135 |        -16 |        -28 |       -179 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\animation\TextAnimations.cpp          | C++      |       -448 |        -57 |        -82 |       -587 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\audio\Audio.cpp                       | C++      |       -273 |        -10 |        -33 |       -316 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\audio\WavLoader.cpp                   | C++      |        -84 |          0 |        -10 |        -94 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\core.cpp                              | C++      |       -303 |         -4 |        -26 |       -333 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\core\Application.cpp                  | C++      |       -512 |        -33 |       -101 |       -646 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\core\GladLayer.cpp                    | C++      |        -46 |         -3 |         -7 |        -56 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\core\ImGuiLayer.cpp                   | C++      |       -203 |        -15 |        -52 |       -270 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\core\Input.cpp                        | C++      |       -109 |         -4 |        -18 |       -131 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\core\ProjectApp.cpp                   | C++      |        -82 |         -6 |        -19 |       -107 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\core\Window.cpp                       | C++      |       -106 |         -1 |        -21 |       -128 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\editor\AnimObjectPanel.cpp            | C++      |        -54 |         -1 |        -12 |        -67 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\editor\AssetManagerPanel.cpp          | C++      |       -195 |        -11 |        -31 |       -237 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\editor\ConsoleLog.cpp                 | C++      |       -273 |         -5 |        -49 |       -327 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\editor\DebugPanel.cpp                 | C++      |       -149 |         -6 |        -27 |       -182 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\editor\EditorCameraController.cpp     | C++      |        -52 |         -1 |         -9 |        -62 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\editor\EditorGui.cpp                  | C++      |       -252 |         -6 |        -39 |       -297 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\editor\EditorSettings.cpp             | C++      |        -67 |         -1 |        -11 |        -79 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\editor\ExportPanel.cpp                | C++      |        -70 |          0 |        -13 |        -83 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\editor\Gizmos.cpp                     | C++      |       -330 |        -24 |        -42 |       -396 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\editor\ImGuiExtended.cpp              | C++      |       -456 |        -15 |        -75 |       -546 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\editor\ImGuiTimeline.cpp              | C++      |     -1,474 |       -147 |       -240 |     -1,861 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\editor\MenuBar.cpp                    | C++      |        -57 |         -3 |        -16 |        -76 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\editor\ProjectScreen.cpp              | C++      |       -425 |        -28 |        -81 |       -534 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\editor\SceneHierarchyPanel.cpp        | C++      |       -515 |       -104 |        -87 |       -706 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\editor\SceneManagementPanel.cpp       | C++      |       -126 |        -14 |        -26 |       -166 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\editor\Timeline.cpp                   | C++      |     -1,375 |       -136 |       -190 |     -1,701 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\latex\LaTexLayer.cpp                  | C++      |       -290 |        -27 |        -47 |       -364 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\main.cpp                              | C++      |        -19 |          0 |         -6 |        -25 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\math\DataStructures.cpp               | C++      |       -506 |          0 |       -101 |       -607 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\multithreading\GlobalThreadPool.cpp   | C++      |       -157 |         -2 |        -18 |       -177 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\parsers\Common.cpp                    | C++      |        -63 |         -5 |        -12 |        -80 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\parsers\Grammar.cpp                   | C++      |       -564 |        -20 |        -81 |       -665 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\parsers\SyntaxHighlighter.cpp         | C++      |       -231 |        -10 |        -38 |       -279 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\parsers\SyntaxTheme.cpp               | C++      |       -345 |        -16 |        -58 |       -419 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\platform\FileSystemWatcherWin32.cpp   | C++      |       -193 |         -5 |        -31 |       -229 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\platform\PlatformWin32.cpp            | C++      |       -428 |        -21 |        -61 |       -510 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\renderer\Colors.cpp                   | C++      |        -17 |          0 |         -1 |        -18 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\renderer\Fonts.cpp                    | C++      |       -639 |        -58 |       -120 |       -817 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\renderer\Framebuffer.cpp              | C++      |       -233 |        -21 |        -54 |       -308 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\renderer\OrthoCamera.cpp              | C++      |        -56 |         -9 |        -10 |        -75 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\renderer\PerspectiveCamera.cpp        | C++      |        -56 |        -13 |         -9 |        -78 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\renderer\Renderer.cpp                 | C++      |     -2,062 |       -221 |       -444 |     -2,727 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\renderer\Shader.cpp                   | C++      |       -244 |        -21 |        -60 |       -325 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\renderer\Texture.cpp                  | C++      |       -419 |        -14 |        -62 |       -495 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\scripting\GlobalApi.cpp               | C++      |       -981 |       -122 |       -257 |     -1,360 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\scripting\LuauLayer.cpp               | C++      |       -336 |        -20 |        -62 |       -418 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\scripting\MathAnimGlobals.cpp         | C++      |        -92 |          0 |        -18 |       -110 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\scripting\ScriptAnalyzer.cpp          | C++      |       -271 |        -16 |        -54 |       -341 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\svg\Paths.cpp                         | C++      |        -41 |          0 |         -5 |        -46 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\svg\Svg.cpp                           | C++      |     -1,687 |       -189 |       -290 |     -2,166 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\svg\SvgCache.cpp                      | C++      |       -259 |        -59 |        -40 |       -358 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\svg\SvgParser.cpp                     | C++      |     -1,722 |        -72 |       -233 |     -2,027 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\svg\TexturePacker.cpp                 | C++      |       -160 |        -14 |        -26 |       -200 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\utils\CMath.cpp                       | C++      |       -733 |        -85 |       -129 |       -947 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\utils\TableOfContents.cpp             | C++      |       -127 |        -27 |        -25 |       -179 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\video\Encoder.cpp                     | C++      |       -278 |        -10 |        -43 |       -331 |
+| c:\Users\Aurélien\Documents\dev\MathAnimation\Animations\src\video\NvidiaEncoder.cpp               | C++      |          0 |          0 |         -1 |         -1 |
+| Total                                                                                              |          |    -19,194 |     -2,047 |     -3,354 |    -24,595 |
++----------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
