@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 110 40" width="110"
+    height="100">
+
+    <!-- <title>Reusable Button</title>
+    <desc>Takes parameters from parent document's embedding element.</desc> -->
+
+    <defs>
+        <ref id="paramFill" param="color" default="blue" />
+        <ref id="paramText" param="text-label">button</ref>
+        <ref id="paramStroke" param="outline" default="navy" />
+        <linearGradient id="myGradient" gradientTransform="rotate(90)">
+            <stop offset="20%" stop-color="gold" />
+            <stop offset="90%" stop-color="red" />
+        </linearGradient>
+        <!-- <linearGradient id="az">
+            <stop stop-color="black" />
+        </linearGradient> -->
+    </defs>
+
+    <g>
+        <linearGradient id="az">
+            <stop stop-color="blue" />
+        </linearGradient>
+        <rect id="button_rect" x="5" y="5" width="100" height="30" rx="15" ry="15"
+            style="fill:var(--some);stroke:var(--some);--some: blue" />
+        <rect id="button_rect" x="10" y="10" width="100" height="30" rx="15" ry="15"
+            style="fill:var(--some);stroke:var(--some);--some: red" />
+        <!-- style="fill:url(#myGradient);stroke:url(#az);some: blue;" /> -->
+        <!-- <text id="button_label" x="55" y="30" text-anchor="middle" font-size="25" fill="black" font-family="Verdana">
+            <tref xlink:href="#paramText" />
+        </text> -->
+    </g>
+
+</svg>
