@@ -1,0 +1,77 @@
+[package]
+name = "unify"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+js-sys = "0.3.61"
+wasm-bindgen = "0.2.84"
+wasm-bindgen-futures = "0.4.34"
+humantime = "2"
+chrono = "0.4.11"
+reqwest = "0.10.6"
+json= "*"
+gloo = "0.2.1"
+
+# web-sys = { version = "0.3.61", features = ['console','CanvasRenderingContext2d','Document','Element','HtmlCanvasElement','Window'] }
+[dependencies.web-sys]
+version = "0.3.61"
+features = [
+    'console',
+    'CanvasRenderingContext2d',
+    'Document',
+    'Element',
+    'HtmlCanvasElement',
+    'Window',
+    'CssStyleDeclaration',
+    'Headers',
+    'Request',
+    'RequestInit',
+    'RequestMode',
+    'Response',
+    'ImageData',
+    'EventTarget',
+    'MouseEvent',
+    'Node',
+    'Performance',
+    'PerformanceTiming',
+    "AudioContext",
+    "AudioDestinationNode",
+    "AudioWorklet",
+    "AudioWorkletNode",
+    "AudioWorkletNodeOptions",
+    'AudioNode',
+    'AudioParam',
+    'GainNode',
+    'OscillatorNode',
+    'OscillatorType',
+    "Blob",
+    "BlobPropertyBag",
+    "HtmlInputElement",
+    "HtmlLabelElement",
+    "Url",
+    'WebGlBuffer',
+    'WebGlVertexArrayObject',
+    'WebGl2RenderingContext',
+    'WebGlProgram',
+    'WebGlShader',
+    "MessageEvent",
+    "RtcPeerConnection",
+    "RtcSignalingState",
+    "RtcSdpType",
+    "RtcSessionDescriptionInit",
+    "RtcPeerConnectionIceEvent",
+    "RtcIceCandidate",
+    "RtcDataChannel",
+    "RtcDataChannelEvent",
+    "BinaryType",
+    "ErrorEvent",
+    "FileReader",
+    "ProgressEvent",
+    "WebSocket",
+] 

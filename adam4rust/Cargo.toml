@@ -1,0 +1,19 @@
+[package]
+name = "adam4rust"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+# [lib]
+# name="adam"
+# path="src/adam.rs"
+
+[[bin]]
+name="zae"
+path="src/some copy.rs"
+
+[dependencies]
+cats-utils="*"
+nn="*"
+neural_network="*"
