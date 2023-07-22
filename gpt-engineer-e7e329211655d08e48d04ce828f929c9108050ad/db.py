@@ -3,6 +3,7 @@ from dataclasses import dataclass
 import os
 from pathlib import Path
 
+import time
 
 class DB:
     def __init__(self, path):
@@ -11,10 +12,13 @@ class DB:
 
     def __getitem__(self, key):
         with open(self.path / key) as f:
+            time.sleep(1)
             return f.read()
 
     def __setitem__(self, key, val):
         with open(self.path / key, 'w') as f:
+            
+            time.sleep(1)
             f.write(val)
 
 

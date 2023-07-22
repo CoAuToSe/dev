@@ -1,0 +1,26 @@
+[package]
+name = "captrs"
+version = "0.3.1"
+authors = ["jojo <jo@jo.zone>"]
+description = "Cross-platform screen capture library"
+repository = "https://github.com/bryal/captrs"
+readme = "README.md"
+keywords = ["Windows", "Linux", "screen", "record", "capture"]
+license = "AGPL-3.0"
+edition = "2018"
+
+[target.'cfg(not(windows))'.dependencies]
+x11cap = "0.4.1"
+
+[target.'cfg(windows)'.dependencies]
+dxgcap = "0.2.4"
+
+[dev-dependencies]
+shuteye = "0.3.3"
+qoi = "^0.4.1"
+
+image = "0.23.12"
+fltk = "0.10.14"
+
+# [[example]]
+# name = "image"

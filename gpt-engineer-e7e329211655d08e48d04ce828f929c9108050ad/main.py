@@ -9,6 +9,7 @@ from steps import STEPS
 from db import DB, DBs
 import typer
 
+import time
 
 app = typer.Typer()
 
@@ -17,7 +18,7 @@ app = typer.Typer()
 def chat(
     project_path: str = typer.Argument(None, help="path"),
     run_prefix: str = typer.Option("", help="run prefix, if you want to run multiple variants of the same project and later compare them"),
-    model: str = "gpt-4",
+    model: str = "ada",
     temperature: float = 0.1,
 ):
 
@@ -43,7 +44,11 @@ def chat(
 
 
     for step in STEPS:
+        print("waiting")
+        time.sleep(1)
+        print("done")
         messages = step(ai, dbs)
+        print("az")
         dbs.logs[step.__name__] = json.dumps(messages)
 
 
