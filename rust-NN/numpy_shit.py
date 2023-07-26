@@ -46,3 +46,10 @@ print(aze*zae)
 print(zae*aze)
 print(np.dot(aze,zae))
 print(0.20051619*0.00039417 + 0.98752763*(-0.00257231) + 0.98651776*(-0.00242852) + 0.99995671*0.0039528)
+
+# [[5]4] = f( [[3]4] * [[5]3] + [5] )
+def dot_prod(first, second):
+    for e1 in first:
+        for e2 in second:
+            return
+        

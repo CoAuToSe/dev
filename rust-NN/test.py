@@ -9,13 +9,19 @@ def sigmoid_derivative(x):
 def mse_loss(y_true, y_pred):
     return np.mean((y_true - y_pred)**2)
 
+def absolute_loss(y_true, y_pred): #failed
+    return np.mean(np.abs(y_true - y_pred))#failed
+
+def absolute_loss_derivative(y_true, y_pred):#failed
+    return np.where(y_true - y_pred > 0, -1., 1.)#failed
+
 num_neuron_1 = 5
 
 # Initialiser les poids et les biais aléatoirement
 weights_1 = np.random.rand(3, num_neuron_1) # 3 entrées, 4 neurones dans la couche cachée # [ [f64 ; len_couche_cache] ; len_entre] / [[f64;5];3]
 bias_1 = np.random.rand(num_neuron_1) # [f64 ; len_couche_cache]
-weights_2 = np.random.rand(num_neuron_1, 1) # 4 neurones dans la couche cachée, 1 sortie # [ [f64 ; len_sortie] ; len_couche_cache] / [[f64;1];5]
-bias_2 = np.random.rand(1) # [f64 ; len_sortie]
+weights_2 = np.random.rand(num_neuron_1, 2) # 4 neurones dans la couche cachée, 1 sortie # [ [f64 ; len_sortie] ; len_couche_cache] / [[f64;1];5]
+bias_2 = np.random.rand(2) # [f64 ; len_sortie]
 
 def train(x, y_true, epochs, learning_rate):
     """_summary_
@@ -31,12 +37,14 @@ def train(x, y_true, epochs, learning_rate):
         # Forward propagation
         layer_1_output = sigmoid(np.dot(x, weights_1) + bias_1) # [[5]4] = f( [[3]4] * [[5]3] + [5] )
         # [[5]4] = [[3]4] * [[5]3]
-        # [[5]4] = [[5]4] + [5] = [[5]4] + [5]x4 
-        output = sigmoid(np.dot(layer_1_output, weights_2) + bias_2) # 
+        # [[5]4] ~= [[5]4] + [5] ~= [[5]4] + [5]x4 
+        output = sigmoid(np.dot(layer_1_output, weights_2) + bias_2) # [[2]4] = f( [[5]4] * [[2]5] + [2] )
 
         # Backward propagation
-        output_error = mse_loss(y_true, output) #
-        d_output_error = 2 * (output - y_true) #
+        output_error = mse_loss(y_true, output)
+        d_output_error = 2 * (output - y_true)
+        # output_error = absolute_loss(y_true, output) #failed
+        # d_output_error = absolute_loss_derivative(y_true, output) #failed
 
         d_weights_2 = np.dot(layer_1_output.T, d_output_error * sigmoid_derivative(output)) # 
         d_bias_2 = np.sum(d_output_error * sigmoid_derivative(output), axis=0) # 
@@ -52,10 +60,29 @@ def train(x, y_true, epochs, learning_rate):
         bias_2 -= learning_rate * d_bias_2
 
         if epoch % 100 == 0:
-            print(f"Epoch {epoch}, Loss: {output_error} ;\nweights_1\n{weights_1};\nx\n{x};\nbias_1\n{bias_1};\nnp.dot(x, weights_1)\n{np.dot(x, weights_1)};\nnp.dot(x, weights_1) + bias_1\n{np.dot(x, weights_1) + bias_1};\nlayer_1_output\n{layer_1_output};\noutput\n{output};\nlayer_1_output.T\n{layer_1_output.T};\nd_output_error\n{d_output_error};\nsigmoid_derivative(output)\n{sigmoid_derivative(output)};\nd_output_error * sigmoid_derivative(output)\n{d_output_error * sigmoid_derivative(output)};\nnp.dot(layer_1_output.T, d_output_error * sigmoid_derivative(output))\n{np.dot(layer_1_output.T, d_output_error * sigmoid_derivative(output))};")
+            print(f"Epoch {epoch}, Loss: {output_error} ;")
+            
+            pprint("weights_1", weights_1)
+            pprint("x", x)
+            pprint("bias_1", bias_1)
+            pprint("np.dot(x, weights_1)", np.dot(x, weights_1))
+            pprint("np.dot(x, weights_1) + bias_1", np.dot(x, weights_1) + bias_1)
+            pprint("layer_1_output", layer_1_output)
+            pprint("weights_2", weights_2)
+            pprint("bias_2", bias_2)
+            pprint("np.dot(layer_1_output, weights_2)", np.dot(layer_1_output, weights_2))
+            pprint("output", output)
+            pprint("layer_1_output.T", layer_1_output.T)
+            pprint("d_output_error", d_output_error)
+            pprint("sigmoid_derivative(output)", sigmoid_derivative(output))
+            pprint("d_output_error * sigmoid_derivative(output)", d_output_error * sigmoid_derivative(output))
+            pprint("np.dot(layer_1_output.T, d_output_error * sigmoid_derivative(output))", np.dot(layer_1_output.T, d_output_error * sigmoid_derivative(output)))
 
+def pprint(name,some):
+    print(f"{name}:\n{some}")
+    
 # Pour tester
 inputs = np.array([[0, 0, 1], [0, 1, 1], [1, 0, 1], [1, 1, 1]])
-outputs = np.array([[0], [1], [1], [0]])
+outputs = np.array([[0,1], [1,0], [1,0], [0,1]])
 
 train(inputs, outputs, epochs=10000, learning_rate=0.1)

@@ -9,7 +9,33 @@ default-run="testing2"
 [dependencies]
 nalgebra = "*"
 rand = "*"
+ndarray = "*"
+# ndarray_rand="*"
 
 [[bin]]
 name = "testing2"
 path = "src/testing2.rs"
+
+[[bin]]
+name = "testing3"
+path = "src/testing3.rs"
+
+[[bin]]
+name = "testing4"
+path = "src/testing4.rs"
+
+[[bin]]
+name = "testing5"
+path = "src/testing5.rs"
+
+[[bin]]
+name = "testing6"
+path = "src/testing6.rs"
+
+[[bin]]
+name = "testing7"
+path = "src/testing7.rs"
+
+[[bin]]
+name = "dot_product"
+path = "src/dot_product.rs"
