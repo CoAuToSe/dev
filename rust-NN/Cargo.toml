@@ -37,5 +37,21 @@ name = "testing7"
 path = "src/testing7.rs"
 
 [[bin]]
+name = "testing8"
+path = "src/testing8.rs"
+
+[[bin]]
+name = "testing9"
+path = "src/testing9.rs"
+
+[[bin]]
+name = "testing10"
+path = "src/testing10.rs"
+
+[[bin]]
+name = "testing11"
+path = "src/testing11.rs"
+
+[[bin]]
 name = "dot_product"
 path = "src/dot_product.rs"
