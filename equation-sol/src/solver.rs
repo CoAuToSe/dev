@@ -69,3 +69,21 @@ fn main() {
         Err(e) => println!("Error: {}", e),
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_add_numbers() {
+        let expr = SymbolicExpr::Add(
+            Box::new(SymbolicExpr::Number(2.0)),
+            Box::new(SymbolicExpr::Number(3.0)),
+        );
+        let simplified_expr = expr.simplify();
+
+        assert_eq!(simplified_expr, SymbolicExpr::Number(5.0));
+    }
+
+    // More tests would be added here to cover each operation and case
+}

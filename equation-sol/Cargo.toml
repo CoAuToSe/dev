@@ -11,3 +11,7 @@ edition = "2021"
 [[bin]]
 name = "parser"
 path = "src/parser.rs"
+
+[[bin]]
+name = "solver"
+path = "src/solver.rs"

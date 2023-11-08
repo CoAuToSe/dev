@@ -266,7 +266,8 @@ mod tests {
         let expr = tokenize("sin(0) + cos(0) + log(1)");
         let parsed = parse(&expr).unwrap();
         let result = evaluate(&parsed);
-        assert!((result - 2.0).abs() < 1e-10);
+        // assert!((result - 2.0).abs() < 1e-10);
+        assert!((result - 1.0).abs() < 1e-10);
     }
 }
 
