@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>RÃ©seau de Neurones avec WebGPU en Rust</title>
+</head>
+<body>
+    <script type="module">
+        import init, { run_optimized_neural_network_training } from '../pkg/neural_network_gpu.js';
+
+        async function run() {
+            await init();
+            await run_optimized_neural_network_training();
+        }
+
+        run();
+    </script>
+</body>
+</html>
