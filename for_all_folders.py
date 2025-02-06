@@ -2,42 +2,61 @@ import os
 import subprocess
 import argparse
 
-def executer_commande_dans_dossiers(commande, dossiers_exclus):
+def executer_commande_dans_dossiers(commande, dossier_courant, dossiers_exclus, error_code_stop = 0):
     # Récupère le chemin du répertoire courant
-    dossier_courant = os.getcwd()
     
     # Parcourt chaque élément dans le répertoire courant
     for element in os.listdir(dossier_courant):
         # Si le dossier fait partie de la liste des dossiers à exclure, on le saute.
+        # print(dossier_courant, element,dossiers_exclus, element in dossiers_exclus)
         if element in dossiers_exclus:
             print(f"Le dossier '{element}' est exclu.")
-            continue
-
-        chemin_element = os.path.join(dossier_courant, element)
-        # Vérifie si l'élément est un dossier
-        if os.path.isdir(chemin_element):
-            pretty_command = ' '.join(commande)
-            print(f"\nExécution de la commande `{pretty_command}` dans : {chemin_element}")
-            try:
-                # Exécute la commande dans le dossier spécifié
-                resultat = subprocess.run(
-                    commande,
-                    cwd=chemin_element,
-                    # check=True,
-                    # capture_output=True,
-                    # text=True
-                    shell=True
-                )
-                if resultat.stdout != None:
-                    print("Sortie :")
-                    print(resultat.stdout)
-            except subprocess.CalledProcessError as e:
-                print(f"Une erreur est survenue dans {chemin_element} : {e}")
-                print("Message d'erreur :", e.stderr)
-            except FileNotFoundError as e:
-                print(f"Commande non trouvée dans {chemin_element} : {e}")
-            except Exception as e:
-                print(f"Erreur inattendue dans {chemin_element} : {e}")
+            # continue
+        else:
+            chemin_element = os.path.join(dossier_courant, element)
+            # Vérifie si l'élément est un dossier
+            if os.path.isdir(chemin_element):
+                pretty_command = ' '.join(commande)
+                print(f"\nExécution de la commande `{pretty_command}` dans : {chemin_element}")
+                try:
+                    # Exécute la commande dans le dossier spécifié
+                    resultat = subprocess.run(
+                        commande,
+                        cwd=chemin_element,
+                        # check=True,
+                        # capture_output=True,
+                        # text=True
+                        shell=True
+                    )
+                    # print(resultat)
+                    if resultat.stdout != None:
+                        print("Sortie :")
+                        print(resultat.stdout)
+                    if resultat.returncode != error_code_stop:
+                        # print("lol")
+                        succes = False
+                        try:
+                            for element in os.listdir(dossier_courant):
+                                chemin_element = os.path.join(dossier_courant, element)
+                                # print(dossier_courant, element,dossiers_exclus, element in dossiers_exclus)
+                                if element in dossiers_exclus:
+                                    print(f"Le dossier '{element}' est exclu.")
+                                else:
+                                    if os.path.isdir(chemin_element):
+                                        # Pour chaque sous-dossier, on essaie d'exécuter la commande.
+                                        if executer_commande_dans_dossiers(commande, chemin_element, dossiers_exclus):
+                                            succes = True
+                            if not succes:
+                                print(f"La commande n'a pas pu être exécutée correctement dans aucun sous-dossier de {dossier_courant}.")
+                        except Exception as sous_erreur:
+                            print(f"Impossible de parcourir les sous-dossiers de {dossier_courant} : {sous_erreur}")
+                except subprocess.CalledProcessError as e:
+                    print(f"Une erreur est survenue dans {chemin_element} : {e}")
+                    print("Message d'erreur :", e.stderr)
+                except FileNotFoundError as e:
+                    print(f"Commande non trouvée dans {chemin_element} : {e}")
+                except Exception as e:
+                    print(f"Erreur inattendue dans {chemin_element} : {e}")
 
 if __name__ == "__main__":
     # Configuration de l'analyseur d'arguments
@@ -50,16 +69,22 @@ if __name__ == "__main__":
         help="La commande à exécuter, avec ses arguments (exemple : ls -la)"
     )
     parser.add_argument(
-        "--exclure", "-e",
+        "--exclure", "-ex",
         nargs="+",
         default=[],
         help="Liste des noms de dossiers à exclure (exemple : --exclure .vscode node_modules)"
+    )
+    parser.add_argument(
+        "--error_code", "-e",
+        nargs="+",
+        default=[],
+        help="Liste des noms de dossiers à exclure (exemple : --error_code 101)"
     )
     
     args = parser.parse_args()
     
     # La commande est récupérée sous forme de liste, et on récupère la liste des dossiers à exclure
-    executer_commande_dans_dossiers(args.commande, args.exclure)
+    executer_commande_dans_dossiers(args.commande, os.getcwd(), args.exclure)
 
 
 
