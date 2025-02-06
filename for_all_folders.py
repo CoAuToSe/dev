@@ -28,8 +28,9 @@ def executer_commande_dans_dossiers(commande, dossiers_exclus):
                     # text=True
                     shell=True
                 )
-                # print("Sortie :")
-                # print(resultat.stdout)
+                if resultat.stdout != None:
+                    print("Sortie :")
+                    print(resultat.stdout)
             except subprocess.CalledProcessError as e:
                 print(f"Une erreur est survenue dans {chemin_element} : {e}")
                 print("Message d'erreur :", e.stderr)
