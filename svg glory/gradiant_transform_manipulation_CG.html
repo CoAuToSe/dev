@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Comparaison des Fonctions de Transformation</title>
+  <style>
+    /* Styles CSS */
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+
+    main {
+      width: 400px;
+      padding: 20px;
+      background-image: linear-gradient(135deg, white, cyan, white);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    #example-element {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 50px;
+      transform-style: preserve-3d;
+      transition: transform 1.5s;
+      transform: rotate3d(1, 1, 1, 30deg);
+      position: relative;
+    }
+
+    .face {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #fff;
+      backface-visibility: hidden;
+      border: 2px solid #333;
+      box-sizing: border-box;
+    }
+
+    .front  { background: rgba(90, 90, 90, 0.7); transform: translateZ(50px); }
+    .back   { background: rgba(0, 210, 0, 0.7);  transform: rotateY(180deg) translateZ(50px); }
+    .right  { background: rgba(210, 0, 0, 0.7);  transform: rotateY(90deg) translateZ(50px); }
+    .left   { background: rgba(0, 0, 210, 0.7);  transform: rotateY(-90deg) translateZ(50px); }
+    .top    { background: rgba(210, 210, 0, 0.7); transform: rotateX(90deg) translateZ(50px); }
+    .bottom { background: rgba(210, 0, 210, 0.7); transform: rotateX(-90deg) translateZ(50px); }
+
+    .select-form {
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <!-- Élément 3D -->
+    <section id="example-element">
+      <div class="face front">1</div>
+      <div class="face back">2</div>
+      <div class="face right">3</div>
+      <div class="face left">4</div>
+      <div class="face top">5</div>
+      <div class="face bottom">6</div>
+    </section>
+
+    <!-- Menu de sélection -->
+    <div class="select-form">
+      <label for="transfunction">Sélectionnez une fonction de transformation</label>
+      <select id="transfunction">
+        <option selected>Choisissez une fonction</option>
+        <option>rotate(360deg)</option>
+        <option>rotateX(360deg)</option>
+        <option>rotateY(360deg)</option>
+        <option>rotateZ(360deg)</option>
+        <option>rotate3d(1, 1, 1, 90deg)</option>
+        <option>scale(1.5)</option>
+        <option>scaleX(1.5)</option>
+        <option>scaleY(1.5)</option>
+        <option>scaleZ(1.5)</option>
+        <option>scale3d(1, 1.5, 1.5)</option>
+        <option>skew(17deg, 13deg)</option>
+        <option>skewX(17deg)</option>
+        <option>skewY(17deg)</option>
+        <option>translate(100px, 100px)</option>
+        <option>translateX(100px)</option>
+        <option>translateY(100px)</option>
+        <option>translateZ(100px)</option>
+        <option>translate3d(50px, 50px, 50px)</option>
+        <option>perspective(200px)</option>
+        <option>matrix(1, 2, -1, 1, 80, 80)</option>
+        <option>matrix3d(1,0,0,0,0,1,3,0,0,0,1,0,50,100,0,1.1)</option>
+      </select>
+    </div>
+  </main>
+
+  <script>
+    // JavaScript
+
+    // Sélection des éléments
+    const selectElem = document.getElementById("transfunction");
+    const example = document.getElementById("example-element");
+
+    // Écouteur d'événement pour le changement de sélection
+    selectElem.addEventListener("change", () => {
+      const selectedValue = selectElem.value;
+
+      // Vérifie si une fonction valide est sélectionnée
+      if (selectedValue === "Choisissez une fonction") {
+        return;
+      }
+
+      // Applique la transformation sélectionnée en plus de la rotation initiale
+      example.style.transform = `rotate3d(1, 1, 1, 30deg) ${selectedValue}`;
+
+      // Réinitialise la transformation après 2 secondes
+      setTimeout(() => {
+        example.style.transform = "rotate3d(1, 1, 1, 30deg)";
+        selectElem.value = "Choisissez une fonction"; // Réinitialise le menu déroulant
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
