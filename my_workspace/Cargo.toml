@@ -1,7 +1,5 @@
 [workspace]
 members = [
-    "download_net",
-    "train_net",
-    "use_net",
-    "shape_net",
+    "nested_impl_gen",
+    "tenseur_app",
 ]
