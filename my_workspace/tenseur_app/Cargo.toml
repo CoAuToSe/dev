@@ -1,0 +1,7 @@
+﻿[package]
+name = "tenseur_app"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+nested_impl_gen = { path = "../nested_impl_gen" }
