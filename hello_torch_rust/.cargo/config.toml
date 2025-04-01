@@ -1,10 +1,6 @@
-# path=["C:\\Users\\Aurel\\dev\\torch\\libtorch\\libtorch\\lib"]
 [env]
-# LIBTORCH="C:\\Users\\Aurel\\dev\\torch\\libtorch\\libtorch"
-LIBTORCH = { value = "../libtorch/libtorch", relative = true, force = true }
-# PATH = { value = "../libtorch/libtorch/lib", relative = true, force = true }
-# PATH = "C:\\Users\\Aurel\\OneDrive\\Documents\\dev2\\torch\\libtorch\\libtorch\\lib"
+LIBTORCH = { value = "../torch_cpu/torch_cpu", relative = true, force = true }
 
 
-# $Env:LIBTORCH = "C:\\Users\\Aurel\\OneDrive\\Documents\\dev2\\torch\\libtorch\\libtorch"
-# $Env:Path += ";C:\\Users\\Aurel\\OneDrive\\Documents\\dev2\\torch\\libtorch\\libtorch\\lib"
+# $Env:LIBTORCH = "$(Get-location)\\..\\torch_gpu\\torch_gpu"
+# $Env:Path += ";$(Get-location)\\..\\torch_gpu\\torch_gpu\\lib"

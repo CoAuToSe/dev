@@ -1,5 +1,5 @@
 // TODO: change `.cargo/config.toml` too 
-const RELATIV_PATH: &str = "..\\libtorch\\libtorch";
+const RELATIV_PATH: &str = "..\\torch_cpu\\torch_cpu";
 
 fn main() {
     let dir = std::env::var("CARGO_MANIFEST_DIR").unwrap();
@@ -26,5 +26,3 @@ fn main() {
     }
     println!("cargo:rerun-if-changed=build.rs");
 }
-
-
