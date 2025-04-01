@@ -2,5 +2,5 @@
 LIBTORCH = { value = "../torch_cpu/torch_cpu", relative = true, force = true }
 
 
-# $Env:LIBTORCH = "$(Get-location)\\..\\torch_gpu\\torch_gpu"
-# $Env:Path += ";$(Get-location)\\..\\torch_gpu\\torch_gpu\\lib"
+# $Env:LIBTORCH = "$(Get-location)\..\torch_gpu\torch_gpu"
+# $Env:Path += ";$(Get-location)\..\torch_gpu\torch_gpu\lib"
