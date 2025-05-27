@@ -1,0 +1,11 @@
+[workspace]
+members = [
+    "download_net",
+    "train_net",
+    "use_net",
+    "shape_net", "use_hf_model",
+]
+
+
+# [patch.crates-io]
+# tch = { version = "0.7.2" }

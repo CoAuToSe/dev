@@ -1,0 +1,8 @@
+[package]
+name = "use_hf_model"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rust-bert = "0.23.0"  # Check for the latest version on crates.io
+tch = "0.17.0"         # Also verify the latest version

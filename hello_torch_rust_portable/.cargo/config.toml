@@ -1,0 +1,6 @@
+[env]
+LIBTORCH = { value = "../libtorch/libtorch", relative = true, force = true }
+
+
+# $Env:LIBTORCH = "$(Get-location)\..\torch_gpu\torch_gpu"
+# $Env:Path += ";$(Get-location)\..\torch_gpu\torch_gpu\lib"

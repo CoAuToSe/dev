@@ -1,0 +1,5 @@
+﻿[workspace]
+members = [
+    "nested_impl_gen",
+    "tenseur_app",
+]
